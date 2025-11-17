@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BookOpen, Users, Award, TrendingUp, Plus, Edit, Trash2, Play, Eye, Clock, Star, Search, Filter, BarChart, DollarSign, Target, ChevronRight, AlertCircle, CheckCircle } from 'lucide-react';
 
-const API = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, convertImageToBase64, fetchCourses }) => {
