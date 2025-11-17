@@ -256,7 +256,7 @@ useEffect(() => {
       // Add cache-busting timestamp to force fresh data
       queryParams.append('_t', Date.now().toString());
       
-      const response = await fetch(`${API_URL}/courses?${queryParams}`);
+      const response = await fetch(`${API_URL}/api/courses?${queryParams}`);
       const data = await response.json();
       
       if (response.ok && data.courses) {
@@ -273,12 +273,13 @@ useEffect(() => {
         throw new Error(data.message || 'Failed to fetch courses');
       }
     } catch (error) {
-      setApiError('Failed to load courses. Using cached data.');
-      // Keep using fallback courses if API fails
-      if (courses.length === 0) {
-        setCourses(fallbackCourses);
-      }
-    }
+  console.error("Failed to fetch courses:", error);
+
+  // Keep using fallback courses if API fails
+  if (courses.length === 0) {
+    setCourses(fallbackCourses);
+  }
+}
   };
 
 useEffect(() => {
@@ -308,7 +309,7 @@ useEffect(() => {
   const fetchEnrolledCourses = async () => {
     try {
       setApiError(null);
-      const response = await fetch(`${API_URL}/user/enrolled-courses`, {
+      const response = await fetch(`${API_URL}/api/user/enrolled-courses`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -376,7 +377,7 @@ useEffect(() => {
         totalQuestions: takingQuiz.questions.length
       });
 
-      const response = await fetch(`${API_URL}/quizzes/${takingQuiz._id}/submit`, {
+      const response = await fetch(`${API_URL}/api/quizzes/${takingQuiz._id}/submit`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -496,7 +497,7 @@ useEffect(() => {
     try {
       // Add cache-busting timestamp
       const timestamp = Date.now();
-      const response = await fetch(`${API_URL}/courses/${courseId}/lectures?_t=${timestamp}&refresh=${forceRefresh ? '1' : '0'}`, {
+      const response = await fetch(`${API_URL}/api/courses/${courseId}/lectures?_t=${timestamp}&refresh=${forceRefresh ? '1' : '0'}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
@@ -543,7 +544,7 @@ const fetchCourseQuizzes = async (courseId) => {
   
   setLoadingQuizzes(true);
   try {
-    const response = await fetch(`${API_URL}/courses/${courseId}/quizzes`, {
+    const response = await fetch(`${API_URL}/api/courses/${courseId}/quizzes`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -639,7 +640,7 @@ useEffect(() => {
     
     setLoadingQuizzes(true);
     try {
-      const response = await fetch(`${API_URL}/student/quizzes`, {
+      const response = await fetch(`${API_URL}/api/student/quizzes`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -859,7 +860,7 @@ useEffect(() => {
       // Use _id if available, otherwise use id
       const actualCourseId = courseId._id || courseId;
       
-      const response = await fetch(`${API_URL}/courses/${actualCourseId}/enroll`, {
+      const response = await fetch(`${API_URL}/api/courses/${actualCourseId}/enroll`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -906,7 +907,7 @@ useEffect(() => {
       });
       
       // Create order on backend
-      const orderResponse = await fetch(`${API_URL}/payment/create-order`, {
+      const orderResponse = await fetch(`${API_URL}/api/payment/create-order`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -947,7 +948,7 @@ useEffect(() => {
             console.log('✅ Payment successful, verifying...');
             
             // Verify payment on backend
-            const verifyResponse = await fetch(`${API_URL}/payment/verify`, {
+            const verifyResponse = await fetch(`${API_URL}/api/payment/verify`, {
               method: 'POST',
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -1104,7 +1105,7 @@ useEffect(() => {
           email: emailToSend
         });
         
-        const response = await fetch(`${API_URL}/auth/send-otp`, {
+        const response = await fetch(`${API_URL}/api/auth/send-otp`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -1146,7 +1147,7 @@ useEffect(() => {
       };
       
       try {
-        const response = await fetch(`${API_URL}/auth/verify-otp`, {
+        const response = await fetch(`${API_URL}/api/auth/verify-otp`, {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
@@ -1240,7 +1241,7 @@ useEffect(() => {
             otp: localFormData.otp.trim()
           };
 
-          const response = await fetch(`${API_URL}/auth/register`, {
+          const response = await fetch(`${API_URL}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(registrationData)
@@ -1304,7 +1305,7 @@ useEffect(() => {
         };
 
         try {
-          const response = await fetch(`${API_URL}/auth/login`, {
+          const response = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(loginData)
@@ -2094,7 +2095,7 @@ useEffect(() => {
               <button
                 onClick={async () => {
                   try {
-                    const response = await fetch(`${API_URL}/payment/receipt/${receiptData.orderId}`, {
+                    const response = await fetch(`${API_URL}/api/payment/receipt/${receiptData.orderId}`, {
                       headers: {
                         'Authorization': `Bearer ${token}`
                       }
@@ -3072,7 +3073,7 @@ useEffect(() => {
 
                     setSendingForgotPasswordOtp(true);
                     try {
-                      const response = await fetch(`${API_URL}/auth/send-otp`, {
+                      const response = await fetch(`${API_URL}/api/auth/send-otp`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ 
@@ -3193,7 +3194,7 @@ useEffect(() => {
 
                       setIsLoading(true);
                       try {
-                        const response = await fetch(`${API_URL}/auth/verify-otp`, {
+                        const response = await fetch(`${API_URL}/api/auth/verify-otp`, {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({ 
@@ -3303,7 +3304,7 @@ useEffect(() => {
 
                     setIsLoading(true);
                     try {
-                      const response = await fetch(`${API_URL}/auth/reset-password`, {
+                      const response = await fetch(`${API_URL}/api/auth/reset-password`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ 
@@ -3320,7 +3321,7 @@ useEffect(() => {
                         
                         // Auto-login the user
                         try {
-                          const loginResponse = await fetch(`${API_URL}/auth/login`, {
+                          const loginResponse = await fetch(`${API_URL}/api/auth/login`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ 
@@ -3576,7 +3577,7 @@ useEffect(() => {
                       if (!passwordForm.otpSent) {
                         setIsLoading(true);
                         try {
-                          const response = await fetch(`${API_URL}/auth/send-otp`, {
+                          const response = await fetch(`${API_URL}/api/auth/send-otp`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ 
@@ -3611,7 +3612,7 @@ useEffect(() => {
 
                         setIsLoading(true);
                         try {
-                          const response = await fetch(`${API_URL}/auth/verify-otp`, {
+                          const response = await fetch(`${API_URL}/api/auth/verify-otp`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ 
@@ -3656,7 +3657,7 @@ useEffect(() => {
 
                       setIsLoading(true);
                       try {
-                        const response = await fetch(`${API_URL}/auth/reset-password`, {
+                        const response = await fetch(`${API_URL}/api/auth/reset-password`, {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({ 
@@ -5864,7 +5865,7 @@ useEffect(() => {
 
                           const timeSpent = Math.floor((Date.now() - quizStartTime) / 1000);
 
-                          const response = await fetch(`${API_URL}/quizzes/${takingQuiz._id}/submit`, {
+                          const response = await fetch(`${API_URL}/api/quizzes/${takingQuiz._id}/submit`, {
                             method: 'POST',
                             headers: {
                               'Authorization': `Bearer ${token}`,
@@ -5877,7 +5878,7 @@ useEffect(() => {
 
                           if (response.ok) {
                             // Fetch the quiz with correct answers for review
-                            const quizResponse = await fetch(`${API_URL}/quizzes/${takingQuiz._id}/review`, {
+                            const quizResponse = await fetch(`${API_URL}/api/quizzes/${takingQuiz._id}/review`, {
                               headers: {
                                 'Authorization': `Bearer ${token}`
                               }

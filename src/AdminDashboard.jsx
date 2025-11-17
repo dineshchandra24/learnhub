@@ -181,7 +181,7 @@ const AdminDashboard = () => {
       setLoading(true);
       console.log('🔍 Fetching course by ID:', courseId);
       
-      const response = await fetch(`${API_URL}/admin/courses/${courseId}`, {
+      const response = await fetch(`${API_URL}/api/admin/courses/${courseId}`, {
         headers: { 
           'Authorization': `Bearer ${adminToken}`,
           'Content-Type': 'application/json'
@@ -214,7 +214,7 @@ const AdminDashboard = () => {
       setLoading(true);
       console.log('🔍 Fetching student by ID:', studentId);
       
-      const response = await fetch(`${API_URL}/admin/students/${studentId}`, {
+      const response = await fetch(`${API_URL}/api/admin/students/${studentId}`, {
         headers: { 
           'Authorization': `Bearer ${adminToken}`,
           'Content-Type': 'application/json'
@@ -245,7 +245,7 @@ const AdminDashboard = () => {
       setLoading(true);
       console.log('🔍 Fetching instructor by ID:', instructorId);
       
-      const response = await fetch(`${API_URL}/admin/instructors/${instructorId}`, {
+      const response = await fetch(`${API_URL}/api/admin/instructors/${instructorId}`, {
         headers: { 
           'Authorization': `Bearer ${adminToken}`,
           'Content-Type': 'application/json'
@@ -372,7 +372,7 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       // Find student by email
-      const studentsResponse = await fetch(`${API_URL}/admin/students`, {
+      const studentsResponse = await fetch(`${API_URL}/api/admin/students`, {
         headers: { 'Authorization': `Bearer ${adminToken}` }
       });
       
@@ -389,7 +389,7 @@ const AdminDashboard = () => {
         return;
       }
       
-      const response = await fetch(`${API_URL}/admin/users/${student._id}/reset-password`, {
+      const response = await fetch(`${API_URL}/api/admin/users/${student._id}/reset-password`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -445,7 +445,7 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       // Find instructor by email
-      const instructorsResponse = await fetch(`${API_URL}/admin/instructors`, {
+      const instructorsResponse = await fetch(`${API_URL}/api/admin/instructors`, {
         headers: { 'Authorization': `Bearer ${adminToken}` }
       });
       
@@ -462,7 +462,7 @@ const AdminDashboard = () => {
         return;
       }
       
-      const response = await fetch(`${API_URL}/admin/users/${instructor._id}/reset-password`, {
+      const response = await fetch(`${API_URL}/api/admin/users/${instructor._id}/reset-password`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -515,7 +515,7 @@ const AdminDashboard = () => {
     
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/admin/change-password`, {
+      const response = await fetch(`${API_URL}/api/admin/change-password`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -554,7 +554,7 @@ const AdminDashboard = () => {
     
     setSendingOtp(true);
     try {
-      const response = await fetch(`${API_URL}/admin/send-reset-otp`, {
+      const response = await fetch(`${API_URL}/api/admin/send-reset-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim() })
@@ -586,7 +586,7 @@ const AdminDashboard = () => {
     
     setVerifyingOtp(true);
     try {
-      const response = await fetch(`${API_URL}/admin/verify-reset-otp`, {
+      const response = await fetch(`${API_URL}/api/admin/verify-reset-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -641,7 +641,7 @@ const AdminDashboard = () => {
     
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/admin/reset-password-with-otp`, {
+      const response = await fetch(`${API_URL}/api/admin/reset-password-with-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -723,7 +723,7 @@ const AdminDashboard = () => {
   const confirmUnenroll = async (courseId, studentId) => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/admin/students/${studentId}/unenroll/${courseId}`, {
+      const response = await fetch(`${API_URL}/api/admin/students/${studentId}/unenroll/${courseId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${adminToken}`
@@ -760,7 +760,7 @@ const AdminDashboard = () => {
       let quizzesData = { quizzes: [] };
       
       try {
-        const lecturesResponse = await fetch(`${API_URL}/courses/${courseId}/lectures`, {
+        const lecturesResponse = await fetch(`${API_URL}/api/courses/${courseId}/lectures`, {
           headers: { 
             'Authorization': `Bearer ${adminToken}`,
             'Content-Type': 'application/json'
@@ -782,7 +782,7 @@ const AdminDashboard = () => {
       }
       
       try {
-        const quizzesResponse = await fetch(`${API_URL}/courses/${courseId}/quizzes`, {
+        const quizzesResponse = await fetch(`${API_URL}/api/courses/${courseId}/quizzes`, {
           headers: { 
             'Authorization': `Bearer ${adminToken}`,
             'Content-Type': 'application/json'
@@ -825,7 +825,7 @@ const AdminDashboard = () => {
       
       console.log('🔍 Fetching student details for:', studentId);
       
-      const response = await fetch(`${API_URL}/admin/students/${studentId}`, {
+      const response = await fetch(`${API_URL}/api/admin/students/${studentId}`, {
         headers: { 
           'Authorization': `Bearer ${adminToken}`,
           'Content-Type': 'application/json'
@@ -860,7 +860,7 @@ const AdminDashboard = () => {
       
       console.log('🔍 Fetching instructor details for:', instructorId);
       
-      const response = await fetch(`${API_URL}/admin/instructors/${instructorId}`, {
+      const response = await fetch(`${API_URL}/api/admin/instructors/${instructorId}`, {
         headers: { 
           'Authorization': `Bearer ${adminToken}`,
           'Content-Type': 'application/json'
@@ -905,7 +905,7 @@ const AdminDashboard = () => {
       setLoadingAnalytics(true);
       console.log('📊 Fetching analytics for period:', period);
       
-      const response = await fetch(`${API_URL}/admin/analytics/dashboard?period=${period}`, {
+      const response = await fetch(`${API_URL}/api/admin/analytics/dashboard?period=${period}`, {
         headers: { 
           'Authorization': `Bearer ${adminToken}`,
           'Content-Type': 'application/json'
@@ -941,7 +941,7 @@ const AdminDashboard = () => {
       setLoading(true);
       console.log('🔍 Fetching enrolled students for course:', courseId);
       
-      const response = await fetch(`${API_URL}/courses/${courseId}/enrolled-students`, {
+      const response = await fetch(`${API_URL}/api/courses/${courseId}/enrolled-students`, {
         headers: { 
           'Authorization': `Bearer ${adminToken}`,
           'Content-Type': 'application/json'
@@ -983,7 +983,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/admin/login`, {
+      const response = await fetch(`${API_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginForm)
@@ -1041,7 +1041,7 @@ const AdminDashboard = () => {
 
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/instructor/courses/${viewingCourse._id}`, {
+      const response = await fetch(`${API_URL}/api/instructor/courses/${viewingCourse._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -1166,8 +1166,8 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const url = editingLecture 
-        ? `${API_URL}/courses/${viewingCourse._id}/lectures/${editingLecture._id}`
-        : `${API_URL}/courses/${viewingCourse._id}/lectures`;
+        ? `${API_URL}/api/courses/${viewingCourse._id}/lectures/${editingLecture._id}`
+        : `${API_URL}/api/courses/${viewingCourse._id}/lectures`;
       
       const method = editingLecture ? 'PUT' : 'POST';
 
@@ -1203,7 +1203,7 @@ const AdminDashboard = () => {
   const confirmDeleteLecture = async (lectureId) => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/courses/${viewingCourse._id}/lectures/${lectureId}`, {
+      const response = await fetch(`${API_URL}/api/courses/${viewingCourse._id}/lectures/${lectureId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${adminToken}`
@@ -1273,8 +1273,8 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const url = editingQuiz 
-        ? `${API_URL}/courses/${viewingCourse._id}/quizzes/${editingQuiz._id}`
-        : `${API_URL}/courses/${viewingCourse._id}/quizzes`;
+        ? `${API_URL}/api/courses/${viewingCourse._id}/quizzes/${editingQuiz._id}`
+        : `${API_URL}/api/courses/${viewingCourse._id}/quizzes`;
       
       const method = editingQuiz ? 'PUT' : 'POST';
 
@@ -1310,7 +1310,7 @@ const AdminDashboard = () => {
   const confirmDeleteQuiz = async (quizId) => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/courses/${viewingCourse._id}/quizzes/${quizId}`, {
+      const response = await fetch(`${API_URL}/api/courses/${viewingCourse._id}/quizzes/${quizId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${adminToken}`
@@ -1366,7 +1366,7 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/admin/courses`, {
+      const response = await fetch(`${API_URL}/api/admin/courses`, {
         headers: { 'Authorization': `Bearer ${adminToken}` }
       });
       const data = await response.json();
@@ -1386,7 +1386,7 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/admin/students`, {
+      const response = await fetch(`${API_URL}/api/admin/students`, {
         headers: { 'Authorization': `Bearer ${adminToken}` }
       });
       const data = await response.json();
@@ -1406,7 +1406,7 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/admin/instructors`, {
+      const response = await fetch(`${API_URL}/api/admin/instructors`, {
         headers: { 'Authorization': `Bearer ${adminToken}` }
       });
       const data = await response.json();
@@ -1427,7 +1427,7 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const endpoint = type === 'course' ? 'courses' : type === 'student' ? 'users' : 'users';
-      const response = await fetch(`${API_URL}/admin/${endpoint}/${id}`, {
+      const response = await fetch(`${API_URL}/api/admin/${endpoint}/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${adminToken}` }
       });

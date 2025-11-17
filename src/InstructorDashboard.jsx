@@ -146,7 +146,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
     setLoading(true);
     try {
       const timestamp = Date.now();
-      const response = await fetch(`${API_URL}/instructor/courses?_t=${timestamp}`, {
+      const response = await fetch(`${API_URL}/api/instructor/courses?_t=${timestamp}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -176,7 +176,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
     if (!showCourseDetail) return;
     
     try {
-      const response = await fetch(`${API_URL}/courses/${showCourseDetail._id}/lectures`, {
+      const response = await fetch(`${API_URL}/api/courses/${showCourseDetail._id}/lectures`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -200,7 +200,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
     
     setLoadingStudents(true);
     try {
-      const response = await fetch(`${API_URL}/courses/${showCourseDetail._id}/enrolled-students`, {
+      const response = await fetch(`${API_URL}/api/courses/${showCourseDetail._id}/enrolled-students`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -226,7 +226,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
     
     setLoadingQuizzes(true);
     try {
-      const response = await fetch(`${API_URL}/courses/${showCourseDetail._id}/quizzes`, {
+      const response = await fetch(`${API_URL}/api/courses/${showCourseDetail._id}/quizzes`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -326,7 +326,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
         discount: courseForm.discount ? parseInt(courseForm.discount) : 0
       };
 
-      const response = await fetch(`${API_URL}/instructor/courses`, {
+      const response = await fetch(`${API_URL}/api/instructor/courses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -344,7 +344,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
             const formData = new FormData();
             formData.append('thumbnail', imageFile);
 
-            const uploadResponse = await fetch(`${API_URL}/admin/courses/${data.course._id}/upload-thumbnail`, {
+            const uploadResponse = await fetch(`${API_URL}/api/admin/courses/${data.course._id}/upload-thumbnail`, {
               method: 'POST',
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -433,7 +433,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
   // Fetch single quiz for viewing/editing
   const fetchSingleQuiz = async (quizId) => {
     try {
-      const response = await fetch(`${API_URL}/courses/${showCourseDetail._id}/quizzes/${quizId}`, {
+      const response = await fetch(`${API_URL}/api/courses/${showCourseDetail._id}/quizzes/${quizId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -614,7 +614,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
         }))
       };
 
-      const response = await fetch(`${API_URL}/courses/${showCourseDetail._id}/quizzes/${editingQuiz._id}`, {
+      const response = await fetch(`${API_URL}/api/courses/${showCourseDetail._id}/quizzes/${editingQuiz._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -646,7 +646,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
 
     try {
       const response = await fetch(
-        `${API_URL}/courses/${showCourseDetail._id}/quizzes/${deletingQuiz._id}`,
+        `${API_URL}/api/courses/${showCourseDetail._id}/quizzes/${deletingQuiz._id}`,
         {
           method: 'DELETE',
           headers: {
@@ -800,7 +800,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
         }))
       };
 
-      const response = await fetch(`${API_URL}/courses/${showCourseDetail._id}/quizzes`, {
+      const response = await fetch(`${API_URL}/api/courses/${showCourseDetail._id}/quizzes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1054,7 +1054,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
 
         xhr.addEventListener('error', () => reject(new Error('Upload failed')));
 
-        xhr.open('POST', `${API_URL}/courses/${showCourseDetail._id}/lectures/upload-video`);
+        xhr.open('POST', `${API_URL}/api/courses/${showCourseDetail._id}/lectures/upload-video`);
         xhr.setRequestHeader('Authorization', `Bearer ${token}`);
         xhr.send(formData);
       });
@@ -1102,7 +1102,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
           formData.append('thumbnail', editLectureThumbnailFile);
 
           const thumbnailResponse = await fetch(
-            `${API_URL}/courses/${showCourseDetail._id}/lectures/${editingLecture._id}/upload-thumbnail`,
+            `${API_URL}/api/courses/${showCourseDetail._id}/lectures/${editingLecture._id}/upload-thumbnail`,
             {
               method: 'POST',
               headers: {
@@ -1132,7 +1132,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
       };
 
       const response = await fetch(
-        `${API_URL}/courses/${showCourseDetail._id}/lectures/${editingLecture._id}`,
+        `${API_URL}/api/courses/${showCourseDetail._id}/lectures/${editingLecture._id}`,
         {
           method: 'PUT',
           headers: {
@@ -1168,7 +1168,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
 
     try {
       const response = await fetch(
-        `${API_URL}/courses/${showCourseDetail._id}/lectures/${deletingLecture._id}`,
+        `${API_URL}/api/courses/${showCourseDetail._id}/lectures/${deletingLecture._id}`,
         {
           method: 'DELETE',
           headers: {
@@ -1223,7 +1223,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
 
         xhr.addEventListener('error', () => reject(new Error('Upload failed')));
 
-        xhr.open('POST', `${API_URL}/courses/${showCourseDetail._id}/lectures/upload-video`);
+        xhr.open('POST', `${API_URL}/api/courses/${showCourseDetail._id}/lectures/upload-video`);
         xhr.setRequestHeader('Authorization', `Bearer ${token}`);
         xhr.send(formData);
       });
@@ -1270,7 +1270,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
         order: lectures.length + 1
       };
 
-      const response = await fetch(`${API_URL}/courses/${showCourseDetail._id}/lectures`, {
+      const response = await fetch(`${API_URL}/api/courses/${showCourseDetail._id}/lectures`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1290,7 +1290,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
             formData.append('thumbnail', lectureThumbnailFile);
 
             const thumbnailResponse = await fetch(
-              `${API_URL}/courses/${showCourseDetail._id}/lectures/${data.lecture._id}/upload-thumbnail`,
+              `${API_URL}/api/courses/${showCourseDetail._id}/lectures/${data.lecture._id}/upload-thumbnail`,
               {
                 method: 'POST',
                 headers: {
@@ -1400,7 +1400,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
           const formData = new FormData();
           formData.append('thumbnail', imageFile);
 
-          const uploadResponse = await fetch(`${API_URL}/admin/courses/${editCourseData._id}/upload-thumbnail`, {
+          const uploadResponse = await fetch(`${API_URL}/api/admin/courses/${editCourseData._id}/upload-thumbnail`, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`
@@ -1435,7 +1435,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
         discount: editCourseData.discount ? parseInt(editCourseData.discount) : 0
       };
 
-      const response = await fetch(`${API_URL}/instructor/courses/${editCourseData._id}`, {
+      const response = await fetch(`${API_URL}/api/instructor/courses/${editCourseData._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -1496,7 +1496,7 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
   const handleDeleteCourse = async () => {
     setDeletingCourse(true);
     try {
-      const response = await fetch(`${API_URL}/instructor/courses/${showCourseDetail._id}`, {
+      const response = await fetch(`${API_URL}/api/instructor/courses/${showCourseDetail._id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
