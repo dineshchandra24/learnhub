@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, BookOpen, Users, GraduationCap, X, Trash2, Edit, Eye } from 'lucide-react';
 
-const API = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('courses');
