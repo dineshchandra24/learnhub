@@ -3,7 +3,7 @@ import { Search, Play, Star, Clock, Users, BookOpen, Award, Menu, X, ChevronRigh
 import InstructorDashboard from './InstructorDashboard.jsx';
 import AdminDashboard from './AdminDashboard.jsx';
 
-const API = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
