@@ -5128,68 +5128,6 @@ useEffect(() => {
                   </div>
                 </div>
               )}
-
-              {/* Video Player Modal */}
-              {playingVideo && (
-                <div 
-                  style={{ 
-                    position: 'fixed', 
-                    inset: '0', 
-                    backgroundColor: 'rgba(0, 0, 0, 0.9)', 
-                    zIndex: 10000, 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    padding: '2rem' 
-                  }}
-                  onClick={() => setPlayingVideo(null)}
-                >
-                  <div 
-                    style={{ 
-                      backgroundColor: 'white', 
-                      borderRadius: '1rem', 
-                      maxWidth: '900px', 
-                      width: '100%',
-                      overflow: 'hidden'
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div style={{ padding: '1.5rem', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>
-                        {playingVideo.title}
-                      </h3>
-                      <button 
-                        onClick={() => setPlayingVideo(null)}
-                        style={{ color: '#9ca3af', background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
-                      >
-                        <X style={{ width: 24, height: 24 }} />
-                      </button>
-                    </div>
-                    <div style={{ aspectRatio: '16/9', backgroundColor: '#000' }}>
-                      <video
-                        key={playingVideo._id || playingVideo.id}
-                        controls
-                        autoPlay
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                        onError={(e) => {
-                          console.error('Video load error:', e);
-                        }}
-                      >
-                        <source src={playingVideo.videoUrl} type="video/mp4" />
-                        <source src={playingVideo.videoUrl} type="video/webm" />
-                        <source src={playingVideo.videoUrl} type="video/ogg" />
-                        <source src={playingVideo.videoUrl} />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                    {playingVideo.description && (
-                      <div style={{ padding: '1.5rem', color: '#6b7280' }}>
-                        {playingVideo.description}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
