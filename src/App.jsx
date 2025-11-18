@@ -1267,8 +1267,15 @@ useEffect(() => {
             
             setUser(userWithRole);
             setToken(data.token);
-            localStorage.setItem('learnhub_user', JSON.stringify(userWithRole));
-            localStorage.setItem('learnhub_token', data.token);
+           if (userType === 'instructor') {
+  localStorage.setItem('instructorData', JSON.stringify(userWithRole));
+  localStorage.setItem('instructorToken', data.token);
+} else {
+  localStorage.setItem('learnhub_user', JSON.stringify(userWithRole));
+  localStorage.setItem('learnhub_token', data.token);
+}
+
+
             setShowAuthModal(false);
             setLocalFormData({ name: '', email: '', password: '', confirmPassword: '', otp: '' });
             setAuthFormData({ name: '', email: '', password: '', confirmPassword: '', otp: '' });
@@ -1332,8 +1339,14 @@ useEffect(() => {
             
             setUser(userWithRole);
             setToken(data.token);
-            localStorage.setItem('learnhub_user', JSON.stringify(userWithRole));
-            localStorage.setItem('learnhub_token', data.token);
+           if (userWithRole.role === 'instructor') {
+  localStorage.setItem('instructorData', JSON.stringify(userWithRole));
+  localStorage.setItem('instructorToken', data.token);
+} else {
+  localStorage.setItem('learnhub_user', JSON.stringify(userWithRole));
+  localStorage.setItem('learnhub_token', data.token);
+}
+
             setShowAuthModal(false);
             setLocalFormData({ name: '', email: '', password: '', confirmPassword: '', otp: '' });
             setAuthFormData({ name: '', email: '', password: '', confirmPassword: '', otp: '' });
@@ -3346,8 +3359,14 @@ useEffect(() => {
                             const userWithRole = { ...loginData.user, role: loginData.user.role || 'student' };
                             setUser(userWithRole);
                             setToken(loginData.token);
-                            localStorage.setItem('learnhub_user', JSON.stringify(userWithRole));
-                            localStorage.setItem('learnhub_token', loginData.token);
+                          if (userWithRole.role === 'instructor') {
+  localStorage.setItem('instructorData', JSON.stringify(userWithRole));
+  localStorage.setItem('instructorToken', data.token);
+} else {
+  localStorage.setItem('learnhub_user', JSON.stringify(userWithRole));
+  localStorage.setItem('learnhub_token', data.token);
+}
+
                             
                             // Close modal and redirect
                             setShowForgotPassword(false);
