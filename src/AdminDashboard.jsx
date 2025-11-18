@@ -1794,15 +1794,25 @@ const AdminDashboard = () => {
               onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
               onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
             >
-             <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="book-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style={{ stopColor: '#667eea', stopOpacity: 1 }} />
       <stop offset="100%" style={{ stopColor: '#764ba2', stopOpacity: 1 }} />
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="20" fill="url(#logo-gradient)" />
-  <path d="M30 35 L30 65 L50 65 L50 75 L70 55 L50 35 L50 45 L40 45 L40 35 Z" fill="white" stroke="white" strokeWidth="2" strokeLinejoin="round" />
+  <rect width="100" height="100" rx="20" fill="url(#book-gradient)" />
+  {/* Open Book */}
+  <path d="M 50 35 L 50 70 M 50 35 Q 35 30 25 35 L 25 70 Q 35 65 50 70 M 50 35 Q 65 30 75 35 L 75 70 Q 65 65 50 70" 
+        fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+  {/* Pages lines - left side */}
+  <line x1="30" y1="45" x2="45" y2="47" stroke="white" strokeWidth="1.5" opacity="0.7"/>
+  <line x1="30" y1="52" x2="45" y2="54" stroke="white" strokeWidth="1.5" opacity="0.7"/>
+  <line x1="30" y1="59" x2="45" y2="61" stroke="white" strokeWidth="1.5" opacity="0.7"/>
+  {/* Pages lines - right side */}
+  <line x1="55" y1="47" x2="70" y2="45" stroke="white" strokeWidth="1.5" opacity="0.7"/>
+  <line x1="55" y1="54" x2="70" y2="52" stroke="white" strokeWidth="1.5" opacity="0.7"/>
+  <line x1="55" y1="61" x2="70" y2="59" stroke="white" strokeWidth="1.5" opacity="0.7"/>
 </svg>
 <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>LearnHub Admin</span>
             </div>
