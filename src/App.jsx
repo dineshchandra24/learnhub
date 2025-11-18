@@ -1776,10 +1776,22 @@ useEffect(() => {
     return <AdminDashboard onLogout={() => setCurrentPage('home')} />;
   }
 
-  // SHOW INSTRUCTOR DASHBOARD
-  if (currentPage === 'instructor-dashboard') {
-    return <InstructorDashboard onLogout={() => setCurrentPage('home')} />;
-  }
+ if (currentPage === 'instructor-dashboard') {
+  return (
+    <InstructorDashboard
+      user={user}
+      token={token}
+      onLogout={() => {
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem("instructorData");
+        localStorage.removeItem("instructorToken");
+        setCurrentPage('home');
+      }}
+    />
+  );
+}
+
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f9fafb' }}>
