@@ -106,6 +106,16 @@ const App = () => {
     return null;
   };
 
+  useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const page = params.get("page");
+
+  if (page) {
+    setCurrentPage(page);
+  }
+}, []);
+
+  
   // Browser history management - handle back/forward
   useEffect(() => {
     const handlePopState = (event) => {
