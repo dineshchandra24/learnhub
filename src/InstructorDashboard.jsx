@@ -344,7 +344,8 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
             const formData = new FormData();
             formData.append('thumbnail', imageFile);
 
-            const uploadResponse = await fetch(`${API_URL}/api/admin/courses/${data.course._id}/upload-thumbnail`, {
+            `${API_URL}/api/instructor/courses/${editCourseData._id}/upload-thumbnail`, // ✅ Changed from /api/admin/courses/
+            {
               method: 'POST',
               headers: {
                 'Authorization': `Bearer ${token}`
