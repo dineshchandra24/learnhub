@@ -134,12 +134,20 @@ const AdminDashboard = () => {
   // Handle browser back/forward navigation
   useEffect(() => {
     const handlePopState = async (e) => {
-      if (e.state && e.state.page === 'profile') {
-        setShowProfilePage(true);
-        setViewingCourse(null);
-        setViewingStudent(null);
-        setViewingInstructor(null);
-      } else if (e.state && e.state.page === 'course') {
+  if (e.state && e.state.page === 'analytics') {
+    setShowAnalytics(true);
+    setShowProfilePage(false);
+    setViewingCourse(null);
+    setViewingStudent(null);
+    setViewingInstructor(null);
+  } else if (e.state && e.state.page === 'profile') {
+    setShowProfilePage(true);
+    setShowAnalytics(false);
+    setViewingCourse(null);
+    setViewingStudent(null);
+    setViewingInstructor(null);
+  } else if (e.state && e.state.page === 'course') {
+    setShowAnalytics(false);
         setShowProfilePage(false);
         setViewingStudent(null);
         setViewingInstructor(null);
@@ -161,11 +169,12 @@ const AdminDashboard = () => {
           await fetchInstructorById(e.state.instructor._id);
         }
       } else {
-        setShowProfilePage(false);
-        setViewingCourse(null);
-        setViewingStudent(null);
-        setViewingInstructor(null);
-      }
+  setShowProfilePage(false);
+  setShowAnalytics(false);
+  setViewingCourse(null);
+  setViewingStudent(null);
+  setViewingInstructor(null);
+}
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -1774,28 +1783,28 @@ const AdminDashboard = () => {
         <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div 
-              onClick={() => {
-                if (showProfilePage || viewingCourse || viewingStudent) {
-                  window.history.back();
-                } else {
-                  navigateToDashboard();
-                }
-              }}
+          onClick={() => {
+  if (showProfilePage || viewingCourse || viewingStudent || viewingInstructor || showAnalytics) {
+    window.history.back();
+  } else {
+    navigateToDashboard();
+  }
+}}
               style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', transition: 'opacity 0.2s' }}
               onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
               onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
             >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="24" height="24" rx="6" fill="url(#gradient)" />
-                <path d="M7 8h10M7 12h10M7 16h6" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                <defs>
-                  <linearGradient id="gradient" x1="0" y1="0" x2="24" y2="24">
-                    <stop offset="0%" stopColor="#667eea" />
-                    <stop offset="100%" stopColor="#764ba2" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>LearnHub Admin</span>
+             <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style={{ stopColor: '#667eea', stopOpacity: 1 }} />
+      <stop offset="100%" style={{ stopColor: '#764ba2', stopOpacity: 1 }} />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#logo-gradient)" />
+  <path d="M30 35 L30 65 L50 65 L50 75 L70 55 L50 35 L50 45 L40 45 L40 35 Z" fill="white" stroke="white" strokeWidth="2" strokeLinejoin="round" />
+</svg>
+<span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>LearnHub Admin</span>
             </div>
           </div>
 
