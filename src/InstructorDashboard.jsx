@@ -338,30 +338,37 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
       const data = await response.json();
 
       if (response.ok) {
-        // If there's an image file, upload it to Cloudinary
-        if (imageFile && data.course) {
-          try {
-            const formData = new FormData();
-            formData.append('thumbnail', imageFile);
+      // If there's an image file, upload it to Cloudinary
+if (imageFile && data.course) {
+  try {
+    const formData = new FormData();
+    formData.append('thumbnail', imageFile);
 
-            `${API_URL}/api/instructor/courses/${editCourseData._id}/upload-thumbnail`, // ✅ Changed from /api/admin/courses/
-            {
-              method: 'POST',
-              headers: {
-                'Authorization': `Bearer ${token}`
-              },
-              body: formData
-            });
+    // 🔥 Correct fetch call
+    const uploadResponse = await fetch(
+      `${API_URL}/api/instructor/courses/${data.course._id}/upload-thumbnail`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      }
+    );
 
-            if (uploadResponse.ok) {
-              const uploadData = await uploadResponse.json();
-              console.log('✅ Thumbnail uploaded:', uploadData.imageUrl);
-            }
-          } catch (uploadError) {
-            console.error('Image upload error:', uploadError);
-            // Continue anyway, course is already created
-          }
-        }
+    if (uploadResponse.ok) {
+      const uploadData = await uploadResponse.json();
+      console.log('✅ Thumbnail uploaded:', uploadData.imageUrl);
+    } else {
+      console.error('❌ Thumbnail upload failed', uploadResponse.status);
+    }
+
+  } catch (uploadError) {
+    console.error('Image upload error:', uploadError);
+    // Continue anyway, course is already created
+  }
+}
+
 
         showNotification('Course created successfully!', 'success');
         setShowCreateCourse(false);
@@ -1401,7 +1408,8 @@ const InstructorDashboard = ({ user, token, showNotification, setCurrentPage, co
           const formData = new FormData();
           formData.append('thumbnail', imageFile);
 
-          const uploadResponse = await fetch(`${API_URL}/api/admin/courses/${editCourseData._id}/upload-thumbnail`, {
+          const uploadResponse = await fetch(
+            `${API_URL}/api/admin/courses/${editCourseData._id}/upload-thumbnail`, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`
