@@ -345,8 +345,7 @@ if (imageFile && data.course) {
     formData.append('thumbnail', imageFile);
 
     // 🔥 Correct fetch call
-    const uploadResponse = await fetch(
-      `${API_URL}/api/instructor/courses/${data.course._id}/upload-thumbnail`,
+    const uploadResponse = await fetch(`${API_URL}/api/instructor/courses/${data.course._id}/upload-thumbnail`,
       {
         method: 'POST',
         headers: {
@@ -368,8 +367,6 @@ if (imageFile && data.course) {
     // Continue anyway, course is already created
   }
 }
-
-
         showNotification('Course created successfully!', 'success');
         setShowCreateCourse(false);
         resetCourseForm();
